@@ -4,7 +4,7 @@
 
 # cleanup
 rm -rf obj_dir
-rm -f counter.vcd
+rm -f sinegen.vcd
 
 # run Verilator to translate Verilog into C++, including C++ testbench
 verilator -Wall --cc --trace sinegen.sv counter.sv rom.sv --exe sinegen_tb.cpp

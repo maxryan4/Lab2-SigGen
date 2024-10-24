@@ -4,18 +4,25 @@ module rom #(
 )(
     input logic                     clk,
     input logic [ADDRESS_WIDTH-1:0] addr,
-    output logic [DATA_WIDTH-1:0]   dout
+    //input logic [ADDRESS_WIDTH-1:0] addr2,
+    input logic [ADDRESS_WIDTH-1:0] offset,
+    output logic [DATA_WIDTH-1:0]   dout1,
+    output logic [DATA_WIDTH-1:0]   dout2
 );
 
-logic [DATA_WIDTH-1:0] rom_array[2**ADDRESS_WIDTH-1:0];
+logic [DATA_WIDTH-1:0] rom_array1[2**ADDRESS_WIDTH-1:0];
+//logic [DATA_WIDTH-1:0] rom_array2[2**ADDRESS_WIDTH-1:0];
 
 initial begin
     $display("Loading rom.");
-    $readmemh("sinerom.mem", rom_array);
+    $readmemh("sinerom.mem", rom_array1);
+    //$readmemh("sinerom.mem", rom_array2);
 end;
 
-always_ff @(posedge clk)
+always_ff @(posedge clk) begin
     //output is synchronous
-    dout <= rom_array[addr];
+    dout1 <= rom_array1[addr];
+    dout2 <= rom_array1[addr + offset];
+end
 
 endmodule
